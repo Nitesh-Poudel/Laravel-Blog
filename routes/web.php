@@ -32,12 +32,13 @@ Route::get('/home',[contentController::class,'index'])->name('home');
 Route::middleware([LoginRequiredMiddleware::class])->group(function(){
     Route::get('/Upload',[contentController::class,'create'])->name('create.blog');
     Route::post('/storeBlog',[contentController::class,'store'])->name('store.blog');
-    Route::get('/particularBlog/{id}',[contentController::class,'show'])->name('particular.blog');
+    Route::post('/todo',[ReactionController::class,'todo'])->name('reaction');
 
 });
 
 
-
+Route::get('/particularBlog/{id}',[contentController::class,'show'])->name('particular.blog');
+   
 
 //catagoryController
 Route::get('/Add/category',[categoryController::class,'addCategory'])->name('add.catagory');
@@ -51,7 +52,6 @@ Route::get('/highlight',function(){
 
 
 //reactionController
-Route::post('/todo',[ReactionController::class,'todo'])->name('reaction');
 
 
 //Logout

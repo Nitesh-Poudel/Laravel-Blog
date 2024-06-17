@@ -36,21 +36,27 @@ class ReactionController extends Controller
         if($req->input('action')=='comment'){
              $userid=session()->get('user_id');
              $validatedData=$req->validate([
-                'blogid'=>'required|integer',
-                // 'commenter_id'=>'required|in:like,unlike,comment',
+                'blog_id'=>'required',
                 'comment'=>'required'
              ]);
+
+
             //  //added session userid in array
-             $validatedData['blog_id']=$validatedData['blogid'];
-              $validatedData['commenter_id'] = $userid;
+             $validatedData['blog_id']=(int)$validatedData['blog_id'];
+               $validatedData['commenter_id'] = $userid;
             
-              unset($validatedData['blogid']); // Remove the old key if necessary
+            //   unset($validatedData['blogid']); // Remove the old key if necessary
           //$comment=Comment::create($validatedData);
 
-               return $validatedData;
-
+                 $docomment=Comment::create($validatedData);
+            
+              return redirect()->back();
              
         }
+
+
+
+
         if($req->input('action')=='unlike'){
             $this->likeModel->doUnlike($req->blogid);
             return redirect()->back();

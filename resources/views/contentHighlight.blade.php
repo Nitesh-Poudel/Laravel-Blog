@@ -26,7 +26,7 @@
       <button id="unlike" name="action" value="unlike">Unike</button>
       @endif
 
-      <input type="hidden" name="blogid" value="{{$content->id}}">
+      <input type="hidden" name="blog_id" value="{{$content->id}}">
       <label for="comment">
         <button id="comment"  name="action" value="comment">Comment</button>
       </label>
@@ -35,6 +35,10 @@
      <textarea id="comment" name="comment" rows="4" cols="50"></textarea>
 
   </form>
-  
+  <div class="errormsg">
+        @foreach($errors->all() as $error)
+           <li>{{$error}}</li>
+        @endforeach
+     </div>
 @endsection
 

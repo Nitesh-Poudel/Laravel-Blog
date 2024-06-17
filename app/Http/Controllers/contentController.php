@@ -21,18 +21,21 @@ class contentController extends Controller
 
     public function index()
     {
-        $categoryModel=new catagory();
-        $categories=$categoryModel->getAllCategory();
+        
+        $categories=Catagory::get();
 
-        $blogModel=new blog();
-        //$contents=$blogModel->getAllContents();
-        $contents=Blog::orderBy('id', 'desc')
-            // ->where('title','like','%emoji%')
-            // ->orWhere('category_id','=','5')
+        //$blogModel=new blog();
+        $contents=Blog::orderBy('id', 'desc')->get();
+        $likes=[];
 
-            ->get();
+        foreach($contents as $content){
+            $likes[$content->id]=Like::where('blog_id',$content->id)
+                                    ->count();
+        }
+         
+        // return $likes 
 
-       return view('home',['categories'=>$categories,'contents'=>$contents]);
+       return view('home',['categories'=>$categories,'contents'=>$contents,'likes'=>$likes]);
         
     }
 
@@ -41,7 +44,7 @@ class contentController extends Controller
      */
     public function create()
     {
-        $categoryModel=new catagory();
+        // $categoryModel=new catagory();
         $categories=$categoryModel->getAllCategory();
 
        
