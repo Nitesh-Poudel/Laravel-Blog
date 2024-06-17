@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Catagory;
 use App\Models\Blog;
+use App\Models\Like;
 use Illuminate\Support\Facades\Session;
 
 
@@ -83,9 +84,19 @@ class contentController extends Controller
      * Display the specified resource.
      */
     public function show(string $id)
-    {    $blogModel = new Blog();
+    {    
+
+        $likeModel=new Like();
+        $likeExist = $likeModel->doILike($id);
+        $likeCount=$likeModel->countLike($id);
+        
+
+
+        // return $likeExist;
+        $blogModel = new Blog();
         $thatBlog=$blogModel->showParticular($id);
-          return view('contentHighlight',['content'=>$thatBlog]) ;   }
+        
+          return view('contentHighlight',['content'=>$thatBlog,'Ilike'=>$likeExist,'likeCount'=>$likeCount]) ;   }
         // return $thatBlog;}
     /**
      * Show the form for editing the specified resource.

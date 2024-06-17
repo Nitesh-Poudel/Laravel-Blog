@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Like;
+use App\Models\Comment;
+
 
 class ReactionController extends Controller
 {
@@ -23,7 +25,8 @@ class ReactionController extends Controller
             }
             else{
                  $this->likeModel->doUnlike($req->blogid);
-                 return redirect()->back();
+              return redirect()->back();
+                //return "unlike hahahhaha";
             }
             // return $this->likeModel->dolike($req->blogid);
             //return $likeExist;
@@ -31,10 +34,26 @@ class ReactionController extends Controller
 
 
         if($req->input('action')=='comment'){
-           return  $this->doComment();
+             $userid=session()->get('user_id');
+             $validatedData=$req->validate([
+                'blogid'=>'required|integer',
+                // 'commenter_id'=>'required|in:like,unlike,comment',
+                'comment'=>'required'
+             ]);
+            //  //added session userid in array
+             $validatedData['blog_id']=$validatedData['blogid'];
+              $validatedData['commenter_id'] = $userid;
+            
+              unset($validatedData['blogid']); // Remove the old key if necessary
+          //$comment=Comment::create($validatedData);
+
+               return $validatedData;
+
+             
         }
         if($req->input('action')=='unlike'){
-            return $this->doUnlike();
+            $this->likeModel->doUnlike($req->blogid);
+            return redirect()->back();
         }
     }
    

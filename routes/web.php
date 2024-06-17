@@ -51,7 +51,7 @@ Route::get('/highlight',function(){
 
 
 //reactionController
-Route::post('/todo',[ReactionController::class,'todo'])->name('todo');
+Route::post('/todo',[ReactionController::class,'todo'])->name('reaction');
 
 
 //Logout

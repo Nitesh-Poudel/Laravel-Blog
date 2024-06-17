@@ -36,7 +36,9 @@ class Like extends Model
                     ->count();
     }
 
-    public function countLike(){
+    public function countLike($blogid){
+        return Like::where('blog_id','=',$blogid)
+                    ->count();
 
     }
 

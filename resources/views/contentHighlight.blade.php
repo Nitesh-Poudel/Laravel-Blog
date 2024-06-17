@@ -16,10 +16,16 @@
 @endsection
 
 @section('extra')
-   <form action="{{route('todo')}}" method="post">
+   <form action="{{route('reaction')}}" method="post">
     @csrf
     <div class="react">
+
+      @if(!$Ilike)
       <button id="like" name="action" value="like">Like</button>
+      @else
+      <button id="unlike" name="action" value="unlike">Unike</button>
+      @endif
+
       <input type="hidden" name="blogid" value="{{$content->id}}">
       <label for="comment">
         <button id="comment"  name="action" value="comment">Comment</button>
