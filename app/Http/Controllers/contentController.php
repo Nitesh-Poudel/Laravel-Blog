@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Catagory;
 use App\Models\Blog;
 use App\Models\Like;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Session;
 
 
@@ -27,24 +28,31 @@ class contentController extends Controller
         //$blogModel=new blog();
         $contents=Blog::orderBy('id', 'desc')->get();
         $likes=[];
+        $commentsCount=[];
 
         foreach($contents as $content){
             $likes[$content->id]=Like::where('blog_id',$content->id)
                                     ->count();
+
+            $commentsCount[$content->id]=Comment::where('blog_id',$content->id)
+                                                ->count();
         }
          
         // return $likes 
 
-       return view('home',['categories'=>$categories,'contents'=>$contents,'likes'=>$likes]);
+       return view('home',['categories'=>$categories,'contents'=>$contents,'likes'=>$likes,'commentsCount'=>$commentsCount]);
         
     }
+
+
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        // $categoryModel=new catagory();
+         $categoryModel=new catagory();
         $categories=$categoryModel->getAllCategory();
 
        
@@ -83,6 +91,8 @@ class contentController extends Controller
 
     }
 
+
+
     /**
      * Display the specified resource.
      */
@@ -93,13 +103,19 @@ class contentController extends Controller
         $likeExist = $likeModel->doILike($id);
         $likeCount=$likeModel->countLike($id);
         
+        $comments=Comment::where('blog_id',$id)
+                            ->join('blogusers', 'comments.commenter_id', '=', 'blogusers.id')
+                            ->get();
 
-
+        $commentsCount=Comment::where('blog_id',$id)
+                            ->count();
         // return $likeExist;
         $blogModel = new Blog();
         $thatBlog=$blogModel->showParticular($id);
+
+
         
-          return view('contentHighlight',['content'=>$thatBlog,'Ilike'=>$likeExist,'likeCount'=>$likeCount]) ;   }
+          return view('contentHighlight',['content'=>$thatBlog,'Ilike'=>$likeExist,'likeCount'=>$likeCount,'comments'=>$comments,'commentsCount'=>$commentsCount]) ;   }
         // return $thatBlog;}
     /**
      * Show the form for editing the specified resource.

@@ -171,7 +171,7 @@ input[type="text"] {
 
 
                 <div class="reaction">
-                  <div><h6>    Likes {{ $likes[$content->id] }}   Comments {{rand(20,50)}}  Views {{rand(500,1000)}}</h6></div>
+                  <div><h6>    Likes {{ $likes[$content->id] }}   Comments {{$commentsCount[$content->id]}}  Views {{rand(500,1000)}}</h6></div>
                 </div>
               </div>  
 

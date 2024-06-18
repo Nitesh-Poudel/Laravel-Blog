@@ -171,7 +171,7 @@ input[type="text"] {
                   <div class="extra">
                     @yield('extra')
                   </div>
-                        <div><h6>    Likes {{ $likeCount }}   Comments {{rand(20,50)}}  Views {{rand(500,1000)}}</h6></div>
+                        <div><h6>    Likes {{ $likeCount }}   Comments {{$commentsCount}}  Views {{rand(500,1000)}}</h6></div>
                         
                 </div>
               </div>  

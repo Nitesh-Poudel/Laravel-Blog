@@ -16,17 +16,18 @@ class ReactionController extends Controller
     }
     public function todo(Request $req){
         if($req->input('action')=='like'){
-            // return $req->blogid;
+        //   return $req->blog_id;
             $likeExist=$this->likeModel->doIlike($req->blogid);
 
             if(!$likeExist){
-                 $this->likeModel->doLike($req->blogid);
+                 $this->likeModel->doLike($req->blog_id);
                  return redirect()->back();
+                //  return $req->blogid;
             }
             else{
-                 $this->likeModel->doUnlike($req->blogid);
-              return redirect()->back();
-                //return "unlike hahahhaha";
+                 $this->likeModel->doUnlike($req->blog_id);
+                //return redirect()->back();
+                return "unlike hahahhaha";
             }
             // return $this->likeModel->dolike($req->blogid);
             //return $likeExist;
@@ -58,7 +59,7 @@ class ReactionController extends Controller
 
 
         if($req->input('action')=='unlike'){
-            $this->likeModel->doUnlike($req->blogid);
+            $this->likeModel->doUnlike($req->blog_id);
             return redirect()->back();
         }
     }

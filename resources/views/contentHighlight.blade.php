@@ -32,7 +32,7 @@
       </label>
     </div>
     
-     <textarea id="comment" name="comment" rows="4" cols="50"></textarea>
+     <textarea id="comment" name="comment" rows="3" cols="150"></textarea>
 
   </form>
   <div class="errormsg">
@@ -40,5 +40,21 @@
            <li>{{$error}}</li>
         @endforeach
      </div>
+<br><br><br>
+  <div class="showComments">
+  @if($comments)
+  <h2>Comments</h2>
+    <table>
+     
+      @foreach($comments as $comment)
+      <tr>
+        <th>{{$comment->fullname}}</th>
+        <td>{{$comment->comment}}</td>
+      </tr>
+      @endforeach
+    </table>
+
+  </div>
+  @endif
 @endsection
 
