@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use App\Models\UserBlog;
 
+
 class Blog extends Model
 {
     //use HasFactory;
@@ -35,4 +36,22 @@ class Blog extends Model
         ->first();
         return $particular;
      }
+
+     public function like(){
+        return $this->hasMany(like::class,'blog_id','id');
+     }
+
+     public function comment(){
+        return $this->hasMany(comment::class,'blog_id','id');
+     }
+
+     public function bloger(){
+        return $this->belongsTo(UserBlog::class,'author_id','id');
+     }
+
+     public function commenter(){
+        return $this->hasMany(comment::class,'commenter_id','blog_id');
+     }
+
+
 }

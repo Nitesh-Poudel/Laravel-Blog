@@ -49,14 +49,9 @@ class Like extends Model
     }
 
 
-    public function doComment(){
-        return "Hi i comment";
+    
 
-    }
-
-    public function countComment(){
-
-    }
+    
 
 
 

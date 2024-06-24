@@ -11,7 +11,7 @@
   <style>
 
     .header{width:100%;height:100px;background-color:blue}
-      .reaction{display:flex;justify-content:space-between;align-items:center}
+      .reaction{align-items:center}
       button{border:none;background:transparent;}
       button img{width:20px}
 
@@ -83,7 +83,7 @@ input[type="text"] {
       
       .text p{color:#1b0101}
      
-      .reaction{ margin-top:30px; border-top:1px solid gray;}
+      /* .reaction{ margin-top:30px; border-top:1px solid gray;} */
 
       .content{ margin:50px 0px;text-align: justify;}
       
@@ -103,7 +103,7 @@ input[type="text"] {
 
       
       ::-webkit-scrollbar-thumb:hover {background: #555;}
-
+      .react{display:flex;justify-content:space-between}
       @yield('style');
     </style>
   
@@ -124,34 +124,7 @@ input[type="text"] {
 
 <br><br>
 <div class="innerContainer">
-<div class="sidebar">
-  <div class="search">
-    
-      <input id="input" type="text" id="form1" />
-      <button class="btn btn-primary">Search</button>
-   
-  </div>
-   
-  <div class="catagoryTable">
-    <h6>Catagory</h6>
-    <ul type="none">
-      
-    
-           
-         
-
-       
-          <div class="catagoryImg"><li> 
-              <a href="#">
-                <img src="" alt="">
-              
-            <div class="catagoryName">category->catagoryName<b></b></div>
-            </a></li></div><br>
-           
-        
-    </ul>
-  </div>
-</div>
+@yield('sidebar')
 <div class="contents">
 
   
@@ -171,7 +144,7 @@ input[type="text"] {
                   <div class="extra">
                     @yield('extra')
                   </div>
-                        <div><h6>    Likes {{ $likeCount }}   Comments {{$commentsCount}}  Views {{rand(500,1000)}}</h6></div>
+                        <div></div>
                         
                 </div>
               </div>  
