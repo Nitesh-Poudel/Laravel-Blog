@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\auth;
 use App\Models\Catagory;
-
+use App\Models\UserBlog;
+use App\Models\Blog;
+use App\Models\Comment;
 
 class UserController extends Controller
 {
@@ -79,8 +81,11 @@ class UserController extends Controller
 
 
 
-    public function userProfile(){
-        return view('userProfile');
+    public function userProfile($userid){
+        $user=userBlog::withCount('blogs')->with('blogs')->find($userid);
+        //  return $user;
+        return view('userProfile',['user' => $user]);
+
     }
 
     public function logout()

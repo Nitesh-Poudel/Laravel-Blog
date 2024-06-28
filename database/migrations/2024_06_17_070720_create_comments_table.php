@@ -14,9 +14,13 @@ return new class extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->integer('blog_id');
-            $table->integer('commenter_id');
+            $table->unsignedBigInteger('blog_id'); // Use unsignedBigInteger for foreign keys
+            $table->unsignedBigInteger('commenter_id'); // Use unsignedBigInteger for foreign keys
             $table->string('comment');
+            
+            // Foreign key constraints
+            $table->foreign('blog_id')->references('id')->on('blogs')->onDelete('cascade');
+            $table->foreign('commenter_id')->references('id')->on('blogusers')->onDelete('cascade');
         });
     }
 

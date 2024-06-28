@@ -20,8 +20,8 @@ Route::post('/user/registration',[UserController::class,'signinValidation'])->na
 
 Route::get('/login',[UserController::class,'login'])->name('login');
 Route::post('/user/login',[UserController::class,'loginValidation'])->name('loginValidation');
-Route::get('/user/profile',[UserController::class,'userProfile'])->name('user.profile');
 
+Route::get('/user/profile/{id}', [UserController::class, 'userProfile'])->name('user.profile');//name comming from blade should match here
 
 
 
@@ -45,13 +45,7 @@ Route::get('/Add/category',[categoryController::class,'addCategory'])->name('add
 
 
 
-//contentHighligt
-Route::get('/highlight',function(){
-    return view('contentHighlight');
-});
 
-
-//reactionController
 
 
 //Logout

@@ -113,7 +113,7 @@ table tr .seen1{background-color:white;}
     
 
       <div class="dropdown">
-        <a href="{{route('user.profile')}}"><div>profile</div></a>
+        <a href="#"><div>profile</div></a>
           <div>
             <a href="{{route('logout')}}"><div>Logout</div></a>
          </div>

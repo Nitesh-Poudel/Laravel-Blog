@@ -52,7 +52,13 @@ table tr td{padding:5px 20px}
 @section('content')
  <p> {!!$content->passage!!}</p>
 </br></br>
- <a href="#"><b>Author: {{$content->bloger->fullname}}</b></a>
+@if ($content->bloger->id)
+    <a href="{{ route('user.profile', ['id' => $content->bloger->id]) }}">
+        <b>Author: {{ $content->bloger->fullname }}</b>
+    </a>
+@else
+    <b>Author: Unknown</b>
+@endif
 @endsection
 
 @section('extra')
@@ -90,23 +96,20 @@ table tr td{padding:5px 20px}
      </div>
 <br>
   <div class="showComments">
-  @if($content->comment)
-  <h2>Comments</h2>
-    <table>
-     
-      @foreach($content->comment as $comment)
-      @if(!$comment->fullname && !$comment->comment)
-            <td colspan="2">No comment</td>
-        @else
-      <tr>
-        <th>{{$content->comment->fullname}}</th>
-        <td>{{$comment->comment}}</td>
-      </tr>
-      @endif
-      @endforeach
-    </table>
-
-  </div>
-  @endif
+  @if(!empty($content['comment']))
+      <h2>Comments</h2>
+      <table>
+        
+        @foreach($content['comment'] as $comment)
+          <tr>
+            <td><a href="{{route('user.profile',['id' => $comment->commenter->id])}}"><b>{{ $comment->commenter->fullname }}</b></a></td> 
+            <td>{{ $comment['comment'] }}</td>
+          </tr>
+        @endforeach
+      </table>
+       <!-- {{$content['comment'];}} -->
+    @else
+      <p>No comments yet.</p>
+    @endif
 @endsection
 

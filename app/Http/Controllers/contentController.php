@@ -101,7 +101,7 @@ class contentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show( $id)
     {    
 
         $likeModel=new Like();
@@ -112,8 +112,8 @@ class contentController extends Controller
                             ->join('blogusers', 'comments.commenter_id', '=', 'blogusers.id')
                             ->get();
 
-        $commentsCount=Comment::where('blog_id',$id)
-                            ->count();
+        // $commentsCount=Comment::where('blog_id',$id)
+        //                     ->count();
         // return $likeExist;
        
         //$thatBlog=Blog::findOrFail($id);
@@ -125,17 +125,23 @@ class contentController extends Controller
         //         ->join('blogusers', 'blogs.author_id', '=', 'blogusers.id')
         //         ->first();
         $thatBlog=Blog::withCount(['like','comment'])
-                ->with(['bloger','comment','commenter'])
-                ->find($id);
+                
+                ->with(['bloger'])
+                // ->select(['title','id'])
+                ->findOrFail($id);
 
+            
                 // $blog = Blog::with('commenter', 'commenter.comments')->find($id);
-        
+       
 
         $contentList=Blog::select(['title','id',])->where('category_id',$thatBlog->category_id)->get();
+
+        $cmt=comment::with('commenter')->get();
+        // return $cmt;
         
-        // return view('contentHighlight',['content'=>$thatBlog,'Ilike'=>$likeExist,'contentList'=>$contentList]) ;   
-          return $thatBlog;
-        // return $blog;   
+         return $a= view('contentHighlight',['content'=>$thatBlog,'Ilike'=>$likeExist,'contentList'=>$contentList,'comment'=>$cmt]) ;   
+        // return $thatBlog;
+         return $a;   
     }
     /**
      * Show the form for editing the specified resource.
