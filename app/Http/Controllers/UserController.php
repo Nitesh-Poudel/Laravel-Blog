@@ -82,12 +82,26 @@ class UserController extends Controller
 
 
     public function userProfile($userid){
-        $user=userBlog::withCount('blogs')->with('blogs')->find($userid);
-        //  return $user;
-        return view('userProfile',['user' => $user]);
+        $user=userBlog::withCount('blogs')
+        ->with(['blogs.comment.commenter'])
+        
+        ->find($userid);
+
+        // $user->loadCount('blogs.likes'); 
+        //    return $user;
+        // $cmt=comment::with('commenter')->get();
+        //   return $cmt->pluck('commenter.fullname');
+       return view('userProfile',['user' => $user]);
 
     }
 
+    public function myProfile($userid){
+        return 'hiiiiiiiiiiiii';
+    }
+
+
+
+    
     public function logout()
     {
         session()->flush(); // Flush all session data

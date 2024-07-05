@@ -137,12 +137,10 @@ class contentController extends Controller
         $contentList=Blog::select(['title','id',])->where('category_id',$thatBlog->category_id)->get();
 
         $cmt=comment::with('commenter')->get();
-        // return $cmt;
         
-         return $a= view('contentHighlight',['content'=>$thatBlog,'Ilike'=>$likeExist,'contentList'=>$contentList,'comment'=>$cmt]) ;   
-        // return $thatBlog;
-         return $a;   
-    }
+            return $a= view('contentHighlight',['content'=>$thatBlog,'Ilike'=>$likeExist,'contentList'=>$contentList,'comment'=>$cmt]) ;   
+        }
+    
     /**
      * Show the form for editing the specified resource.
      */

@@ -7,6 +7,7 @@ use App\Http\Controllers\categoryController;
 use App\Http\Controllers\ReactionController;
 
 use App\Http\Middleware\LoginRequiredMiddleware;
+use App\Http\Middleware\CheckSessionId;
 
 
 Route::get('/', function () {
@@ -21,7 +22,9 @@ Route::post('/user/registration',[UserController::class,'signinValidation'])->na
 Route::get('/login',[UserController::class,'login'])->name('login');
 Route::post('/user/login',[UserController::class,'loginValidation'])->name('loginValidation');
 
-Route::get('/user/profile/{id}', [UserController::class, 'userProfile'])->name('user.profile');//name comming from blade should match here
+Route::get('/user/profile/{id}', [UserController::class, 'userProfile'])->name('user.profile')->middleware(CheckSessionId::class);//name comming from blade should match here
+Route::get('/user/profil/{id}', [UserController::class, 'myProfile'])->name('own.profile')->middleware(CheckSessionId::class);
+
 
 
 
